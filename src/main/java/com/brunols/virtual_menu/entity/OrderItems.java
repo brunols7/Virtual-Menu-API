@@ -1,6 +1,8 @@
 package com.brunols.virtual_menu.entity;
 
+import com.brunols.virtual_menu.dto.OrderItemsDTO;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,4 +31,11 @@ public class OrderItems {
     private int quantity;
 
     private String observations;
+
+    public OrderItems(@Valid OrderItemsDTO dto, Orders order, Items item) {
+        this.order = order;
+        this.item = item;
+        this.observations = dto.observations();
+        this.quantity = dto.quantity();
+    }
 }

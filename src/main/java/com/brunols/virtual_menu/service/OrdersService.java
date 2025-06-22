@@ -1,6 +1,5 @@
 package com.brunols.virtual_menu.service;
 
-import com.brunols.virtual_menu.entity.Items;
 import com.brunols.virtual_menu.entity.Orders;
 import com.brunols.virtual_menu.entity.Status;
 import com.brunols.virtual_menu.repository.OrdersRepository;
@@ -17,7 +16,7 @@ public class OrdersService {
         this.repository = repository;
     }
 
-    public Orders saveOrder(Orders order){
+    public void saveOrder(Orders order){
         if(order == null){
             throw new IllegalArgumentException("Order cannot be null");
         }
@@ -31,7 +30,7 @@ public class OrdersService {
             }
         }
 
-        return repository.save(order);
+        repository.save(order);
     }
 
     public Orders updateOrder(Long id, Orders updatedOrder){
@@ -52,8 +51,26 @@ public class OrdersService {
         repository.delete(existingOrder);
     }
 
+    public void payOrder(Long id){
+        Orders existingOrder = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + id));
+
+        existingOrder.setStatus(Status.PAID);
+
+        repository.save(existingOrder);
+    }
+
+    public void cancelOrder(Long id){
+        Orders existingOrder = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + id));
+
+        existingOrder.setStatus(Status.CANCELLED);
+        repository.save(existingOrder);
+    }
+
     public Orders findOrderById(Long id){
         return repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + id));
     }
+
 }
