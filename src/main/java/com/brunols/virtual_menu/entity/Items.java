@@ -1,6 +1,8 @@
 package com.brunols.virtual_menu.entity;
 
+import com.brunols.virtual_menu.dto.ItemDTO;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,4 +26,9 @@ public class Items {
     @JoinColumn(name = "category_id")
     private Categories category;
 
+    public Items(@Valid ItemDTO dto, Categories category) {
+
+        this.category = category;
+
+    }
 }

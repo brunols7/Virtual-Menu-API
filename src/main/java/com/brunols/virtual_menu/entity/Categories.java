@@ -1,6 +1,8 @@
 package com.brunols.virtual_menu.entity;
 
+import com.brunols.virtual_menu.dto.CategoryDTO;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +22,7 @@ public class Categories {
 
     private String name;
 
+    public Categories(@Valid CategoryDTO dto) {
+        this.name = dto.name();
+    }
 }
