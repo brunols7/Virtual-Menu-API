@@ -5,6 +5,8 @@ import com.brunols.virtual_menu.repository.CategoriesRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Service
 public class CategoriesService {
     private final CategoriesRepository repository;
@@ -54,6 +56,10 @@ public class CategoriesService {
         repository.delete(existingCategory);
 
         return categoryName;
+    }
+
+    public List<Categories> getAllCategories() {
+        return repository.findAll();
     }
 
     public Categories getCategoryById(Long id){

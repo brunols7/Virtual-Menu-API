@@ -51,7 +51,7 @@ public class OrderItemsService {
         List<OrderItems> items = repository.findByOrderId(orderId);
 
         if(items.isEmpty()){
-            throw new NoItemsFoundException("No itemsfound for order id: " + orderId);
+            throw new NoItemsFoundException("No items found for order id: " + orderId);
         }
 
         return items;

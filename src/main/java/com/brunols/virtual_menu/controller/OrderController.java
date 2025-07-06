@@ -73,6 +73,19 @@ public class OrderController {
         return ResponseEntity.ok("Order item updated with success!");
     }
 
+    @GetMapping("/{id}/details")
+    public ResponseEntity<Orders> getOrderDetails(@PathVariable Long id) {
+        Orders order = ordersService.findOrderById(id);
+        return ResponseEntity.ok(order);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateOrder(@PathVariable Long id, @Valid @RequestBody OrderDTO dto) {
+        Orders order = new Orders(dto);
+        ordersService.updateOrder(id, order);
+        return ResponseEntity.ok("Order updated with success!");
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<OrderItemsResponseDTO>> getOrderItems(@PathVariable Long id){
         List<OrderItems> items = orderItemsService.getAllItems(id);
@@ -82,6 +95,16 @@ public class OrderController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(dtoList);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Orders>> getAllOrders() {
+        return ResponseEntity.ok(ordersService.getAllOrders());
+    }
+
+    @GetMapping("open")
+    public ResponseEntity<List<Orders>> getOpenOrders(){
+        return ResponseEntity.ok(ordersService.getOpenOrders());
     }
 
     @GetMapping("/items/{id}")
@@ -94,6 +117,12 @@ public class OrderController {
     @DeleteMapping("/items/{id}")
     public ResponseEntity<Void> removeItemFromOrder(@PathVariable Long id){
         orderItemsService.deleteOrderItem(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+        ordersService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 

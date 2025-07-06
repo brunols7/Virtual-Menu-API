@@ -5,6 +5,7 @@ import com.brunols.virtual_menu.entity.Status;
 import com.brunols.virtual_menu.repository.OrdersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -73,4 +74,11 @@ public class OrdersService {
                 .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + id));
     }
 
+    public List<Orders> getAllOrders() {
+        return repository.findAll();
+}
+
+    public List<Orders> getOpenOrders() {
+        return repository.findAllByStatus(Status.OPEN);
+    }
 }

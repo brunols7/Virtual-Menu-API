@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/catalog")
 public class CatalogController {
@@ -31,6 +33,18 @@ public class CatalogController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Category created with success!");
     }
 
+    @GetMapping("/categories")
+    public ResponseEntity<List<Categories>> getAllCategories() {
+        List<Categories> categories = categoriesService.getAllCategories();
+        return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<Categories> getCategoryById(@PathVariable Long id) {
+        Categories category = categoriesService.getCategoryById(id);
+        return ResponseEntity.ok(category);
+    }
+
     @PostMapping("/items")
     public ResponseEntity<String> createItem(@Valid @RequestBody ItemDTO dto){
         Categories category = categoriesService.getCategoryById(dto.categoryId());
@@ -38,6 +52,25 @@ public class CatalogController {
         itemsService.saveItem(item);
         return ResponseEntity.status(HttpStatus.CREATED).body("Item created with success!");
     }
+
+    @GetMapping("/items")
+    public ResponseEntity<List<Items>> getItems(){
+        List<Items> items = itemsService.getAllItems();
+        return ResponseEntity.ok(items);
+    }
+
+    @GetMapping("/items/{id}")
+    public ResponseEntity<Items> getItemById(@PathVariable Long id) {
+        Items item = itemsService.getItemById(id);
+        return ResponseEntity.ok(item);
+    }
+
+    @GetMapping("/categories/{id}/items")
+    public ResponseEntity<List<Items>> getItemsByCategory(@PathVariable Long id) {
+        List<Items> items = itemsService.getItemsByCategoryId(id);
+        return ResponseEntity.ok(items);
+    }
+
 
     @PatchMapping("/categories/{id}")
     public ResponseEntity<String> updateCategory(@PathVariable Long id, @Valid @RequestBody CategoryDTO dto){

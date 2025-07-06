@@ -5,6 +5,8 @@ import com.brunols.virtual_menu.repository.ItemsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Service
 public class ItemsService {
 
@@ -63,4 +65,12 @@ public class ItemsService {
                 .orElseThrow(() -> new IllegalArgumentException("Item not found with id: " + id));
     }
 
+    public List<Items> getAllItems() {
+        return repository.findAll();
+    }
+
+
+    public List<Items> getItemsByCategoryId(Long categoryId) {
+        return repository.findByCategoryId(categoryId);
+    }
 }
