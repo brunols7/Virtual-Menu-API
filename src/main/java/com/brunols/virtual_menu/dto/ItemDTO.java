@@ -12,7 +12,7 @@ public record ItemDTO(
         String description,
 
         @NotNull(message = "Price is required")
-        int price,
+        Double price,
 
         @NotNull(message = "Category ID is required")
         Long categoryId

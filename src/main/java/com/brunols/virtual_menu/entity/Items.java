@@ -27,7 +27,9 @@ public class Items {
     private Categories category;
 
     public Items(@Valid ItemDTO dto, Categories category) {
-
+        this.name = dto.name();
+        this.description = dto.description();
+        this.price = dto.price();
         this.category = category;
 
     }

@@ -5,6 +5,7 @@ import com.brunols.virtual_menu.dto.OrderItemsResponseDTO;
 import com.brunols.virtual_menu.entity.Items;
 import com.brunols.virtual_menu.entity.OrderItems;
 import com.brunols.virtual_menu.entity.Orders;
+import com.brunols.virtual_menu.exceptions.NoItemsFoundException;
 import com.brunols.virtual_menu.service.ItemsService;
 import com.brunols.virtual_menu.service.OrderItemsService;
 import com.brunols.virtual_menu.service.OrdersService;
@@ -37,10 +38,20 @@ public class OrderItemsController {
 
     @Operation(summary = "Get order items by order ID")
     @GetMapping("/{id}")
-    public ResponseEntity<OrderItemsResponseDTO> getOrderItem(@PathVariable Long id){
-        OrderItems item = orderItemsService.findItemsById(id);
-        OrderItemsResponseDTO response = OrderItemsResponseDTO.fromEntity(item);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<List<OrderItemsResponseDTO>> getOrderItem(@PathVariable Long id){
+        try {
+            ordersService.findOrderById(id);
+            List<OrderItems> items = orderItemsService.getAllItems(id);
+            List<OrderItemsResponseDTO> response = items.stream()
+                    .map(OrderItemsResponseDTO::fromEntity)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(response);
+        } catch (NoItemsFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @Operation(summary = "Create a new order item by order ID")
@@ -55,7 +66,7 @@ public class OrderItemsController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Order item created with success!");
     }
 
-    @Operation(summary = "Update order item by order ID")
+    @Operation(summary = "Update order item by order item ID")
     @PutMapping("/{id}")
     public ResponseEntity<String> updateOrderItem(@PathVariable Long id, @Valid @RequestBody OrderItemsDTO dto){
         Orders order = ordersService.findOrderById(id);
