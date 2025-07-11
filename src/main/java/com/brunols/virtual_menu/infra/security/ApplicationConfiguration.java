@@ -1,4 +1,4 @@
-package com.brunols.virtual_menu.infra;
+package com.brunols.virtual_menu.infra.security;
 
 import com.brunols.virtual_menu.repository.UserRepository;
 import org.springframework.context.annotation.Bean;

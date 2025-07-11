@@ -1,6 +1,6 @@
-package com.brunols.virtual_menu.infra;
+package com.brunols.virtual_menu.infra.security;
 
-import com.brunols.virtual_menu.infra.JwtService;
+import com.brunols.virtual_menu.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

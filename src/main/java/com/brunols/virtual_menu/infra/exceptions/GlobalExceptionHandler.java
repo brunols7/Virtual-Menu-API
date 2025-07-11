@@ -1,4 +1,4 @@
-package com.brunols.virtual_menu.infra;
+package com.brunols.virtual_menu.infra.exceptions;
 
 import com.brunols.virtual_menu.exceptions.NoItemsFoundException;
 import org.springframework.http.HttpStatus;

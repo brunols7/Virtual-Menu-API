@@ -1,4 +1,4 @@
-package com.brunols.virtual_menu.infra;
+package com.brunols.virtual_menu.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

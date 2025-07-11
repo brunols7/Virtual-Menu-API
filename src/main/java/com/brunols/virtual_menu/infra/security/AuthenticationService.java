@@ -1,4 +1,4 @@
-package com.brunols.virtual_menu.infra;
+package com.brunols.virtual_menu.infra.security;
 
 import com.brunols.virtual_menu.dto.LoginUserDto;
 import com.brunols.virtual_menu.dto.RegisterUserDto;
