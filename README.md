@@ -58,6 +58,7 @@ The API will be running and available at `http://localhost:8080`.
 -   **Database:** Uses **PostgreSQL** for data persistence, managed via Spring Data JPA.
 -   **API Documentation:** Interactive API documentation available through **SpringDoc OpenAPI (Swagger UI)**.
 -   **Containerized:** Fully containerized using **Docker** and **Docker Compose** for a consistent and easy-to-run development environment.
+-   **Unit and Integration Tests:** Covered with **JUnit 5** and **Mockito**, ensuring code reliability and correctness.
 
 ## Getting Started
 
@@ -72,6 +73,17 @@ Make sure you have the following tools installed on your system:
 -   Docker
 -   Git
 
+---
+
+## Testing
+
+This project includes automated tests written with **JUnit 5** and **Mockito** to ensure the correctness of business logic and improve code maintainability.
+
+You can run the tests with:
+
+```bash
+./mvnw test
+```
 ---
 
 ## API Documentation (Swagger)
